@@ -1,0 +1,88 @@
+<h1 mat-dialog-title>Add</h1>
+<div mat-dialog-content>
+  <!-- 7bind the form with the UI in the next <form> -->
+  <!--8for every input give a form control name-->>
+  <form [formGroup]="employeeForm">
+    <mat-form-field appearance="outline">
+      <mat-label>Full Name</mat-label>
+      <input formControlName="Fullname" matInput placeholder="Fullname" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>email</mat-label>
+      <input formControlName="email" matInput placeholder="email" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Phone Number</mat-label>
+      <input formControlName="phone" matInput placeholder="PhoneNumber" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Company</mat-label>
+      <input formControlName="company" matInput placeholder="Placeholder" />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>department</mat-label>
+      <mat-select formControlName="department" placeholder="">
+        <mat-option value="HR">HR</mat-option>
+        <mat-option value="Dev">Dev</mat-option>
+        <mat-option value="executive">executives</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-label>Employee</mat-label>
+    <mat-radio-group formControlName="employee" class="example-radio-group">
+      <mat-radio-button
+        class="example-radio-button"
+        *ngFor="let employee of employeeList"
+        [value]="employee"
+      >
+        {{ employee }}
+      </mat-radio-button>
+    </mat-radio-group>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Salary</mat-label>
+      <input
+        formControlName="salary"
+        matInput
+        type="number"
+        placeholder="Placeholder"
+      />
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Choose a date</mat-label>
+      <input formControlName="date" matInput [matDatepicker]="picker" />
+      <mat-hint>MM/DD/YYYY</mat-hint>
+      <mat-datepicker-toggle
+        matIconSuffix
+        [for]="picker"
+      ></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="mat-dialog-action_container">
+      <div mat-dialog-action [align]="'end'">
+        <button
+          style="margin-bottom: 5px"
+          mat-raised-button
+          color="warn"
+          mat-dialog-close
+        >
+          Cancel
+        </button>
+        <button
+          style="margin-left: 8px; margin-bottom: 5px"
+          mat-raised-button
+          color="primary"
+          (click)="addEmployee()"
+        >
+          Save
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
