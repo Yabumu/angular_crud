@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup,FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../services/api.service';
-import {MatDialogRef} from '@angular/material/dialog'
+import {MatDialogRef, MAT_DIALOG_DATA,} from '@angular/material/dialog'
 
 @Component({
   selector: 'app-dialog',
@@ -14,10 +14,12 @@ export class DialogComponent implements OnInit {
 
   //4created a form
   employeeForm !: FormGroup;
+  actionbtn : string ="save";
 
 //5inject form builder in the constractor
 //15 inject api service 
-  constructor(private formBuilder : FormBuilder, private api: ApiService,  private  dialogRef: MatDialogRef<DialogComponent> ) {}
+
+  constructor(private formBuilder : FormBuilder, private api: ApiService, @Inject(MAT_DIALOG_DATA) public editData : any,  private  dialogRef: MatDialogRef<DialogComponent> ) {}
   
   ngOnInit(): void {
     //6initialize our form in the next line 
@@ -32,6 +34,17 @@ export class DialogComponent implements OnInit {
       date : ['', Validators.required],
 
   })
+  if(this.editData){
+    this.actionbtn = "Update";
+    this.employeeForm.controls['Fullname'].setValue(this.editData.Fullname);
+    this.employeeForm.controls['phone'].setValue(this.editData.phone);
+    this.employeeForm.controls['email'].setValue(this.editData.email);
+    this.employeeForm.controls['company'].setValue(this.editData.company);
+    this.employeeForm.controls['department'].setValue(this.editData.department);
+    this.employeeForm.controls['employee'].setValue(this.editData.employee);
+    this.employeeForm.controls['salary'].setValue(this.editData.salary);
+    this.employeeForm.controls['date'].setValue(this.editData.date);
+  }
 
  }
 
@@ -41,19 +54,37 @@ export class DialogComponent implements OnInit {
   //create the json server json-server --watch db.json
   //10 create Api service ng g s services/api
   addEmployee(){
-    if(this.employeeForm.valid){
-      this.api.postEmployee(this.employeeForm.value)
+    if(!this.editData){
+      if(this.employeeForm.valid){
+        this.api.postEmployee(this.employeeForm.value)
+        .subscribe({
+          next:(res)=>{
+            alert('Added to list')
+            this.employeeForm.reset();                  // this line resets the form
+            this.dialogRef.close('save');               //import dialog ref(mat-dialog-ref) 1st then and inject it=>constractor
+          },
+          error:()=>{
+            alert('Error while Adding ')
+          }
+          
+          })
+        }
+    }else{
+      this.updateEmployee()
+    }
+    }
+    updateEmployee(){
+      this.api.putEmpoyee(this.employeeForm.value, this.editData.id)
       .subscribe({
         next:(res)=>{
           alert('Added to list')
           this.employeeForm.reset();                  // this line resets the form
-          this.dialogRef.close('save');               //import dialog ref(mat-dialog-ref) 1st then and inject it=>constractor
+          this.dialogRef.close('update');               //import dialog ref(mat-dialog-ref) 1st then and inject it=>constractor
         },
         error:()=>{
-          alert('Error while Adding ')
+          alert('Error while updating  ')
         }
         
         })
-      }
     }
 }

@@ -22,7 +22,7 @@ export class AppComponent implements OnInit  {
   title = 'angular_crud';
 
 
-  displayedColumns: string[] = ['Fullname', 'phone', 'email', 'company', 'department', 'employee', 'salary', 'date'];
+  displayedColumns: string[] = ['Fullname', 'phone', 'email', 'company', 'department', 'employee', 'salary', 'date', 'action'];
   dataSource!: MatTableDataSource<any>;
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -35,7 +35,7 @@ export class AppComponent implements OnInit  {
     
    }
    ngOnInit() : void{
-    this.getAllEmployee        //ie oninit method
+    this.getAllEmployee();        //ie oninit method
    }
 
    //1below openes the dialog and give it 30% width
@@ -44,7 +44,11 @@ export class AppComponent implements OnInit  {
   openDialog() {
     this.dialog.open(DialogComponent, {
       width:'30%'
-    });
+    }).afterClosed().subscribe(val=>{
+      if (val === 'save'){
+        this.getAllEmployee
+      }
+    })
   }
 
   // inject the api first in the constractor and get the data with below function
@@ -53,7 +57,7 @@ export class AppComponent implements OnInit  {
     .subscribe({
       next:(res)=>{
         //console.log(res)     //=======> call this inside ngOnInit ie implment OnInit on the export class
-        this.dataSource = new MatTableDataSource();
+        this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
         
@@ -61,6 +65,33 @@ export class AppComponent implements OnInit  {
       error:(err)=>{
         alert("error") 
       }
+    })
+
+  }
+  editEmployee( row : any){
+    this.dialog.open(DialogComponent,{
+      width :'30%',
+      data : row
+    }).afterClosed().subscribe(val =>{
+      if(val === 'update'){
+        this.getAllEmployee();
+      }
+
+    })
+  }
+  deleteEmployee(id : number){
+    this.api.deleteEmployee(id)
+    .subscribe({
+      next:(res) =>{
+        alert('Deleted Succesfully');
+        this.getAllEmployee()
+
+      },
+      error:()=>{
+        alert('error occured while deleting the record')
+      }
+      
+
     })
 
   }

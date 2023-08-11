@@ -1,24 +1,6 @@
 {
   "employeeList": [
     {
-      "Fullname": "namee",
-      "email": "gdhg@gmail.com",
-      "department": "Dev",
-      "employee": "Active Employee",
-      "company": "xoka",
-      "date": "2023-08-24T07:00:00.000Z",
-      "id": 1
-    },
-    {
-      "Fullname": "hjgfvgdfsd",
-      "email": "nghjcgh@gmail.com",
-      "department": "Dev",
-      "employee": "Active Employee",
-      "company": "sfdchffc",
-      "date": "2023-08-30T07:00:00.000Z",
-      "id": 2
-    },
-    {
       "Fullname": "asdfgh",
       "email": "asdfg@gmail.com",
       "department": "executive",
@@ -70,6 +52,39 @@
       "salary": 17688,
       "date": "2023-08-16T07:00:00.000Z",
       "id": 7
+    },
+    {
+      "Fullname": "you",
+      "email": "you\"gmail.com",
+      "phone": "12345",
+      "department": "Dev",
+      "employee": "Active Employee",
+      "company": "gff",
+      "salary": 14788,
+      "date": "2023-08-09T21:00:00.000Z",
+      "id": 8
+    },
+    {
+      "Fullname": "we",
+      "email": "kalebteshale72@gmail.com",
+      "phone": "0925499376",
+      "department": "Dev",
+      "employee": "Candidate",
+      "company": "asd",
+      "salary": 12223,
+      "date": "2023-08-09T21:00:00.000Z",
+      "id": 9
+    },
+    {
+      "Fullname": "kal",
+      "email": "kalebteshale72@gmail.com",
+      "phone": "0925499376",
+      "department": "HR",
+      "employee": "Active Employee",
+      "company": "dfgh",
+      "salary": 12444,
+      "date": "2023-08-15T21:00:00.000Z",
+      "id": 10
     }
   ],
   "comments": [

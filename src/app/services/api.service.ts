@@ -16,6 +16,12 @@ postEmployee(data :any){
 getEmployee(){
   return this.http.get<any>("http://localhost:3000/employeeList/");
 }
+putEmpoyee(data: any, id:number){
+  return this.http.put<any>("http://localhost:3000/employeeList/"+id, data);
+}
+deleteEmployee (id: number){
+  return this.http.delete<any>("http://localhost:3000/employeeList/"+id);
+}
 }
 
 //14next inject the Api service in the dialog 
